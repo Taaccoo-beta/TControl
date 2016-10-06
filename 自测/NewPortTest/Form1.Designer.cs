@@ -61,7 +61,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
-            this.timer1_selfTest = new System.Windows.Forms.Timer(this.components);
+            this.timer1_selfTest_down = new System.Windows.Forms.Timer(this.components);
             this.btnSettingT = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -91,11 +91,13 @@
             this.lblPropotation = new System.Windows.Forms.Label();
             this.tbCircle = new System.Windows.Forms.TextBox();
             this.lblCircle = new System.Windows.Forms.Label();
-            this.btnSelfTest = new System.Windows.Forms.Button();
+            this.btnSelfTestDown = new System.Windows.Forms.Button();
             this.lblTestStatus = new System.Windows.Forms.Label();
             this.tbDownKd = new System.Windows.Forms.TextBox();
             this.tbDownKi = new System.Windows.Forms.TextBox();
             this.tbDownKp = new System.Windows.Forms.TextBox();
+            this.btnSelfTestUp = new System.Windows.Forms.Button();
+            this.timer1_selfTest_up = new System.Windows.Forms.Timer(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -387,9 +389,9 @@
             // 
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
-            // timer1_selfTest
+            // timer1_selfTest_down
             // 
-            this.timer1_selfTest.Tick += new System.EventHandler(this.timer5_Tick);
+            this.timer1_selfTest_down.Tick += new System.EventHandler(this.timer5_Tick);
             // 
             // btnSettingT
             // 
@@ -645,20 +647,20 @@
             this.lblCircle.TabIndex = 116;
             this.lblCircle.Text = "Circle:";
             // 
-            // btnSelfTest
+            // btnSelfTestDown
             // 
-            this.btnSelfTest.Location = new System.Drawing.Point(664, 420);
-            this.btnSelfTest.Name = "btnSelfTest";
-            this.btnSelfTest.Size = new System.Drawing.Size(173, 21);
-            this.btnSelfTest.TabIndex = 118;
-            this.btnSelfTest.Text = "Test";
-            this.btnSelfTest.UseVisualStyleBackColor = true;
-            this.btnSelfTest.Click += new System.EventHandler(this.btnSelfTest_Click);
+            this.btnSelfTestDown.Location = new System.Drawing.Point(664, 420);
+            this.btnSelfTestDown.Name = "btnSelfTestDown";
+            this.btnSelfTestDown.Size = new System.Drawing.Size(173, 21);
+            this.btnSelfTestDown.TabIndex = 118;
+            this.btnSelfTestDown.Text = "Test-Down";
+            this.btnSelfTestDown.UseVisualStyleBackColor = true;
+            this.btnSelfTestDown.Click += new System.EventHandler(this.btnSelfTest_Click);
             // 
             // lblTestStatus
             // 
             this.lblTestStatus.AutoSize = true;
-            this.lblTestStatus.Location = new System.Drawing.Point(671, 458);
+            this.lblTestStatus.Location = new System.Drawing.Point(662, 508);
             this.lblTestStatus.Name = "lblTestStatus";
             this.lblTestStatus.Size = new System.Drawing.Size(29, 12);
             this.lblTestStatus.TabIndex = 119;
@@ -688,16 +690,31 @@
             this.tbDownKp.TabIndex = 121;
             this.tbDownKp.Text = "4";
             // 
+            // btnSelfTestUp
+            // 
+            this.btnSelfTestUp.Location = new System.Drawing.Point(664, 457);
+            this.btnSelfTestUp.Name = "btnSelfTestUp";
+            this.btnSelfTestUp.Size = new System.Drawing.Size(173, 21);
+            this.btnSelfTestUp.TabIndex = 126;
+            this.btnSelfTestUp.Text = "Test-up";
+            this.btnSelfTestUp.UseVisualStyleBackColor = true;
+            this.btnSelfTestUp.Click += new System.EventHandler(this.btnSelfTestUp_Click);
+            // 
+            // timer1_selfTest_up
+            // 
+            this.timer1_selfTest_up.Tick += new System.EventHandler(this.timer1_selfTest_up_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1068, 529);
+            this.Controls.Add(this.btnSelfTestUp);
             this.Controls.Add(this.tbDownKd);
             this.Controls.Add(this.tbDownKi);
             this.Controls.Add(this.tbDownKp);
             this.Controls.Add(this.lblTestStatus);
-            this.Controls.Add(this.btnSelfTest);
+            this.Controls.Add(this.btnSelfTestDown);
             this.Controls.Add(this.tbCircle);
             this.Controls.Add(this.lblCircle);
             this.Controls.Add(this.tbKd);
@@ -778,7 +795,7 @@
         private System.Windows.Forms.Label lbOnOff_1;
         private System.Windows.Forms.Label lbOnOff_4;
         private System.Windows.Forms.Label lbOnOff_3;
-        private System.Windows.Forms.Timer timer1_selfTest;
+        private System.Windows.Forms.Timer timer1_selfTest_down;
         private System.Windows.Forms.Button btnSettingT;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label16;
@@ -813,11 +830,13 @@
         private System.Windows.Forms.Label lblVot_4;
         private System.Windows.Forms.Label lblVot_3;
         private System.Windows.Forms.Label lblSingl;
-        private System.Windows.Forms.Button btnSelfTest;
+        private System.Windows.Forms.Button btnSelfTestDown;
         private System.Windows.Forms.Label lblTestStatus;
         private System.Windows.Forms.TextBox tbDownKd;
         private System.Windows.Forms.TextBox tbDownKi;
         private System.Windows.Forms.TextBox tbDownKp;
+        private System.Windows.Forms.Button btnSelfTestUp;
+        private System.Windows.Forms.Timer timer1_selfTest_up;
     }
 }
 

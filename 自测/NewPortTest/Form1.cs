@@ -451,7 +451,7 @@ namespace NewPortTest
             timer2.Stop();
             timer3.Stop();
             timer4.Stop();
-            timer1_selfTest.Stop();
+            timer1_selfTest_down.Stop();
 
             // Flash the LED of the specified DAQ device with FlashLED()
             n1 = 0;
@@ -1243,7 +1243,7 @@ namespace NewPortTest
             {
                 tempAllClear(1);
                 lbOnOff_1.Text = "Error";
-                this.timer1_selfTest.Enabled = false;
+                this.timer1_selfTest_down.Enabled = false;
             }
 
 
@@ -1364,7 +1364,7 @@ namespace NewPortTest
                 }
                 if (D == 1)
                 {
-                    timer1_selfTest.Stop();
+                    timer1_selfTest_down.Stop();
                     temp_nature(0, 1);
                     lblTestStatus.Text = "测试结束";
                 }
@@ -1720,7 +1720,7 @@ namespace NewPortTest
 
         private void btnSelfTest_Click(object sender, EventArgs e)
         {
-            timer1_selfTest.Start();
+            timer1_selfTest_down.Start();
             isRecsiveSingal_1 = true;
             B1_dightOnOFF_1 = 1;
             isFirstChange_12 = false;
@@ -1730,6 +1730,306 @@ namespace NewPortTest
 
 
 
+        }
+
+        private void timer1_selfTest_up_Tick(object sender, EventArgs e)
+        {
+
+            // lblSingl.Text = B1_dightOnOFF_1.ToString();
+            //System.Diagnostics.Stopwatch stopwatch = new Stopwatch();
+            //stopwatch.Start();      //  开始监视代码运行时间
+
+
+
+            B1_temperature1 = AnalogConvertTemperature(0, 2);
+
+            //T1 = B1_temperature1.ToString("00.0");
+            label_temValue1.Text = B1_temperature1.ToString("00.0");
+
+            if (B1_temperature1 > 60 || B1_temperature1 < 0)
+            {
+                tempAllClear(1);
+                lbOnOff_1.Text = "Error";
+                this.timer1_selfTest_up.Enabled = false;
+            }
+
+
+            if (isRecsiveSingal_1 == true)
+            {
+                timerCount++;
+
+                if (B1_dightOnOFF_1 == 1 && isFirstChange_11 == true)
+                {
+                    lbOnOff_1.Text = "On";
+
+                    isUp_1 = true;
+                    isDown_1 = false;
+
+                    isStartPID_1 = true;
+                    PID_Count_1 = 0;
+
+                    tempUp(0, 1);
+                    startPID_1 = false;
+                    isFirstChange_11 = false;
+                    isFirstChange_12 = true;
+
+                    highBalance = true;
+
+                    circle = int.Parse(tbCircle.Text);
+                    PID_1 = new PIDControl(P, I, D, punishMentTemp);
+                    // System.IO.File.AppendAllText("e:\\result_1.txt", "惩罚：" + "Kp:" + tbKp.Text + "  Ki" + tbKi.Text + "  Kd" + tbKd.Text + "\r\n");
+                }
+
+
+                else if (B1_dightOnOFF_1 == 0 && isFirstChange_12 == true)
+                {
+
+
+                    isFirstChange_11 = true;
+                    isFirstChange_12 = false;
+                    isDown_1 = true;
+                    isStartPID_1 = true;
+                    startPID_1 = false;
+                    isUp_1 = false;
+                    lowBalance = true;
+                    PID_Count_1 = 0;
+                    lbOnOff_1.Text = "Off";
+                    tempDown(0, 1);
+                    circle = int.Parse(tbCircle.Text);
+                    PID_1 = new PIDControl(9, 0, 2.5, confortableTemp);
+                    //  System.IO.File.AppendAllText("e:\\result_1.txt", "舒适：" + "Kp:" + 8 + "  Ki" + 0 + "  Kd" + 3 + "\r\n");
+                }
+                else
+                {
+                    ;
+                }
+
+            }
+           
+
+            if (timerCount == 300 && lowBalance == true)
+            {
+                timerCount = 0;
+                B1_dightOnOFF_1 = 1;
+                lowBalance = false;
+                downLine = true;
+                
+            }
+
+            if (timerCount == 100 && downLine)
+            {
+                //System.IO.File.AppendAllText("e:\\result_1.txt", "舒适：" + "Kp:" + 8 + "  Ki" + 0 + "  Kd" + 3 + "\r\n");
+                isChangeParam = true;
+                downLine = false;
+                TimerNotAccept = true;
+
+            }
+
+            if ( punishMentTemp-B1_temperature1 <= 0.5 && downLine == true)
+            {
+                beyondNum++;
+                if (beyondNum == 3)
+                {
+
+                    downLine = false;
+                    longKeep = true;
+                    beyondNum = 0;
+                    downTime = timerCount;
+                    timerCount = 0;
+                }
+            }
+
+            if (longKeep == true)
+            {
+                tempCollection.Add(B1_temperature1);
+                if (timerCount == 300)
+                {
+                    isChangeParam = true;
+                    longKeep = false;
+                }
+
+            }
+
+
+
+
+
+
+            if (isChangeParam)
+            {
+
+                if (TimerNotAccept)
+                {
+                    lblTestStatus.Text = (string.Format("P:{0},I:{1},D{2}--时间超出", P, I, D));
+                    System.IO.File.AppendAllText("e:\\result_1.txt", P + "   " + I + "   " + D + "   " + "Tout" + "\r\n");
+                    highBalance = true;
+                    //输出PID 时间超出，舍弃参数
+                }
+                else
+                {
+                    resultAnalyse(tempCollection);
+                    //执行计算，然后输出
+                    tempCollection = new List<double>();
+                }
+                if (D == 1)
+                {
+                    timer1_selfTest_down.Stop();
+                    temp_nature(0, 1);
+                    lblTestStatus.Text = "测试结束";
+                }
+
+                B1_dightOnOFF_1 = 0;
+                isChangeParam = false;
+                P += 0.2;
+                if ((int)P == 3)
+                {
+                    D += 0.2;
+                    P = 2;
+                }
+
+
+                timerCount = 0;
+                highBalance = true;
+            }
+
+
+
+            //----------升温模块开始---------------------------------
+            if (isUp_1 == true)
+            {
+                if ((punishMentTemp - B1_temperature1) < 5 && isStartPID_1 == true)
+                {
+                    startPID_1 = true;
+                    isStartPID_1 = false;
+
+                    result_1 = PID_1.PIDCalcDirect(B1_temperature1);
+                    FirstPropotation_1 = Convert.ToInt32(result_1);
+                    propotation_1 = Convert.ToInt32(result_1);
+                    propotation_1 = ConvertAccordToPropotation(propotation_1);
+                    // lblPropotation.Text = propotation_1.ToString();
+
+                    PID_Count_1 = 0;
+                    tempUp(0, 1);
+
+                }
+
+
+
+
+
+                if (PID_Count_1 == propotation_1 && startPID_1 == true)
+                {
+                    temp_nature(0, 1);
+                }
+
+
+                if (startPID_1 == true)
+                {
+                    PID_Count_1++;
+
+                }
+
+
+                if (startPID_1 == true && PID_Count_1 == circle)
+                {
+                    result_1 = PID_1.PIDCalcDirect(B1_temperature1);
+
+                    propotation_1 = Convert.ToInt32(result_1);
+                    PID_Count_1 = 0;
+
+
+
+                    if (result_1 > 0)
+                    {
+
+                        tempUp(0, 1);
+
+                    }
+                    else
+                    {
+                        //temp_nature(0, 1);
+                        tempDown(0, 1);
+                    }
+
+                    propotation_1 = ConvertAccordToPropotation(propotation_1);
+
+                    //lblPropotation.Text = propotation_1.ToString();
+                }
+                lblPropotation.Text = propotation_1.ToString();
+                //System.IO.File.AppendAllText("e:\\result_1.txt", "惩罚部分：" + "output:" + result_1.ToString("000.000") + "  propotation:" + propotation_1.ToString("00") + "温度： " + B1_temperature1.ToString("00.00") + "\r\n");
+            }
+
+            //----------降温模块开始---------------------------------
+            if (isDown_1 == true)
+            {
+                if ((B1_temperature1 - confortableTemp) < 5 && isStartPID_1 == true)
+                {
+                    startPID_1 = true;
+                    isStartPID_1 = false;
+
+                    result_1 = PID_1.PIDCalcDirect(B1_temperature1);
+                    FirstPropotation_1 = Convert.ToInt32(result_1);
+                    propotation_1 = Convert.ToInt32(result_1);
+                    propotation_1 = ConvertAccordToPropotation(propotation_1);
+                    PID_Count_1 = 0;
+                    tempDown(0, 1);
+
+                }
+
+
+
+
+
+                if (PID_Count_1 == propotation_1 && startPID_1 == true)
+                {
+                    temp_nature(0, 1);
+                }
+
+                if (startPID_1 == true)
+                {
+                    PID_Count_1++;
+
+                }
+
+                if (startPID_1 == true && PID_Count_1 == circle)
+                {
+                    double result_1 = PID_1.PIDCalcDirect(B1_temperature1);
+                    propotation_1 = Convert.ToInt32(result_1);
+                    PID_Count_1 = 0;
+                    if (result_1 > 0)
+                    {
+                        //temp_nature(0, 1);
+                        tempUp(0, 1);
+                    }
+                    else
+                    {
+                        tempDown(0, 1);
+                    }
+
+                    propotation_1 = ConvertAccordToPropotation(propotation_1);
+
+
+                }
+                lblPropotation.Text = propotation_1.ToString();
+                // System.IO.File.AppendAllText("e:\\result_1.txt", "舒适部分：" + "output:" + result_1.ToString("000.000") + "  propotation:" + propotation_1.ToString() + "温度： " + B1_temperature1.ToString("00.00") + "\r\n");
+
+            }
+
+            //----------升降温模块结束---------------------------------
+
+
+
+
+        }
+
+        private void btnSelfTestUp_Click(object sender, EventArgs e)
+        {
+            timer1_selfTest_up.Start();
+            isRecsiveSingal_1 = true;
+            B1_dightOnOFF_1 = 0;
+            //isFirstChange_11 = false;
+
+            System.IO.File.AppendAllText("e:\\result_3.txt", "开始升温自检" + "\r\n");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1874,14 +2174,15 @@ namespace NewPortTest
             timer2.Interval = 10;
             timer3.Interval = 10;
             timer4.Interval = 10;
-            timer1_selfTest.Interval = 10;
+            timer1_selfTest_down.Interval = 10;
+            timer1_selfTest_up.Interval = 10;
 
-             
+
             //timer1.Start();
             //timer2.Start();
             //timer3.Start();
             //timer4.Start();
-           
+
 
 
         }
