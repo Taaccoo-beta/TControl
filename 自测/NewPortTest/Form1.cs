@@ -120,7 +120,7 @@ namespace NewPortTest
         bool isChangeParam = false;
         double P = 1.0;
         double I = 0.1;
-        double D = 0.2;
+        double D = 0.5;
         int timerCount = 0;
         int beyondNum = 0;
         int downTime;
@@ -1871,20 +1871,20 @@ namespace NewPortTest
                     //执行计算，然后输出
                     tempCollection = new List<double>();
                 }
-                if (D == 1)
+                if (D == 10)
                 {
-                    timer1_selfTest_down.Stop();
+                    timer1_selfTest_up.Stop();
                     temp_nature(0, 1);
                     lblTestStatus.Text = "测试结束";
                 }
 
                 B1_dightOnOFF_1 = 0;
                 isChangeParam = false;
-                P += 0.2;
-                if ((int)P == 3)
+                P += 0.5;
+                if ((int)P == 10)
                 {
-                    D += 0.2;
-                    P = 2;
+                    D += 0.5;
+                    P = 1;
                 }
 
 
@@ -2029,7 +2029,7 @@ namespace NewPortTest
             B1_dightOnOFF_1 = 0;
             //isFirstChange_11 = false;
 
-            System.IO.File.AppendAllText("e:\\result_3.txt", "开始升温自检" + "\r\n");
+            System.IO.File.AppendAllText("e:\\result_1.txt", "开始升温自检" + "\r\n");
         }
 
         private void button2_Click(object sender, EventArgs e)
