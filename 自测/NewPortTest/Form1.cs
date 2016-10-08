@@ -1141,7 +1141,8 @@ namespace NewPortTest
                     //lblPropotation.Text = propotation_1.ToString();
                 }
                 lblPropotation.Text = propotation_1.ToString();
-               // System.IO.File.AppendAllText("e:\\result_1.txt", "惩罚部分：" + "output:" + result_1.ToString("000.000") + "  propotation:" + propotation_1.ToString("00") + "温度： " + B1_temperature1.ToString("00.00") + "\r\n");
+                // System.IO.File.AppendAllText("e:\\result_1.txt", "惩罚部分：" + "output:" + result_1.ToString("000.000") + "  propotation:" + propotation_1.ToString("00") + "温度： " + B1_temperature1.ToString("00.00") + "\r\n");
+                System.IO.File.AppendAllText("e:\\result_1.txt", B1_temperature1.ToString("00.00") + "\r\n");
             }
 
 
@@ -1195,8 +1196,8 @@ namespace NewPortTest
 
                 }
                 lblPropotation.Text = propotation_1.ToString();
-               // System.IO.File.AppendAllText("e:\\result_1.txt", "舒适部分：" + "output:" + result_1.ToString("000.000") + "  propotation:" + propotation_1.ToString() + "温度： " + B1_temperature1.ToString("00.00") + "\r\n");
-
+                // System.IO.File.AppendAllText("e:\\result_1.txt", "舒适部分：" + "output:" + result_1.ToString("000.000") + "  propotation:" + propotation_1.ToString() + "温度： " + B1_temperature1.ToString("00.00") + "\r\n");
+                System.IO.File.AppendAllText("e:\\result_1.txt", B1_temperature1.ToString("00.00") + "\r\n");
             }
 
 
