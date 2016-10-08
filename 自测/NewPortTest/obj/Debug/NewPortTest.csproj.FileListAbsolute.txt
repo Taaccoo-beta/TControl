@@ -509,7 +509,6 @@ D:\GitHub\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.pdb
 D:\GitHub\tcontrol\自测\NewPortTest\bin\Debug\NewPortTest.exe
 D:\GitHub\tcontrol\自测\NewPortTest\bin\Debug\NewPortTest.pdb
 D:\GitHub\tcontrol\自测\NewPortTest\bin\Debug\MccDaq.dll
-D:\GitHub\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.csprojResolveAssemblyReference.cache
 D:\GitHub\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.Form1.resources
 D:\GitHub\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.Properties.Resources.resources
 D:\GitHub\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.csproj.GenerateResource.Cache

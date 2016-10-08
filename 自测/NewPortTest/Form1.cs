@@ -1184,7 +1184,7 @@ namespace NewPortTest
                     PID_Count_1 = 0;
                     if (result_1 > 0)
                     {
-                        temp_nature(0, 1);
+                        tempUp(0, 1);
                     }
                     else
                     {
@@ -1600,8 +1600,8 @@ namespace NewPortTest
                 btnOnoff_1.Text = "Off";
                 tempDown(0, 1);
                 circle = int.Parse(tbCircle.Text);
-                PID_1 = new PIDControl(double.Parse(tbDownKd.Text), double.Parse(tbDownKi.Text), double.Parse(tbDownKd.Text), confortableTemp);
-                System.IO.File.AppendAllText("e:\\result_1.txt", "舒适：" + "Kp:" + tbKp.Text + "  Ki" + tbKi.Text + "  Kd" + tbKd.Text + "\r\n");
+                PID_1 = new PIDControl(double.Parse(tbDownKp.Text), double.Parse(tbDownKi.Text), double.Parse(tbDownKd.Text), confortableTemp);
+                System.IO.File.AppendAllText("e:\\result_1.txt", "舒适：" + "Kp:" + tbDownKp.Text + "  Ki" + tbDownKi.Text + "  Kd" + tbDownKd.Text + "\r\n");
             }
         }
 
