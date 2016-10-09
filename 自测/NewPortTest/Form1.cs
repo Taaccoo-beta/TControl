@@ -1081,7 +1081,7 @@ namespace NewPortTest
 
             if (isUp_1 == true)
             {
-                if ((punishMentTemp - B1_temperature1) < 10 && isStartPID_1 == true)
+                if ((punishMentTemp - B1_temperature1) < 5 && isStartPID_1 == true)
                 {
                     startPID_1 = true;
                     isStartPID_1 = false;
@@ -1148,7 +1148,7 @@ namespace NewPortTest
 
             if (isDown_1 == true)
             {
-                if ((B1_temperature1 - confortableTemp) < 4 && isStartPID_1 == true)
+                if ((B1_temperature1 - confortableTemp) < 5 && isStartPID_1 == true)
                 {
                     startPID_1 = true;
                     isStartPID_1 = false;
@@ -1898,7 +1898,7 @@ namespace NewPortTest
             //----------升温模块开始---------------------------------
             if (isUp_1 == true)
             {
-                if ((punishMentTemp - B1_temperature1) < 5 && isStartPID_1 == true)
+                if ((punishMentTemp - B1_temperature1) < 10 && isStartPID_1 == true)
                 {
                     startPID_1 = true;
                     isStartPID_1 = false;

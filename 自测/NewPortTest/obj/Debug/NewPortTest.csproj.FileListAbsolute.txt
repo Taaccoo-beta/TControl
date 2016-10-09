@@ -521,3 +521,4 @@ H:\github\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.csprojResolveAssembl
 H:\github\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.Form1.resources
 H:\github\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.Properties.Resources.resources
 H:\github\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.csproj.GenerateResource.Cache
+D:\GitHub\tcontrol\自测\NewPortTest\obj\Debug\NewPortTest.csprojResolveAssemblyReference.cache
